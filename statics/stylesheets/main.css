@@ -1,0 +1,318 @@
+/* Theme color for 2018 Spring Election (House of NTU) */
+
+/* Light: #D2D6D4 R: 210 G: 214 B: 212 */
+
+/* Dark:  #2A303E R: 42 G: 48 B: 62    */
+
+* {
+  position: relative;
+  font-family: sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #212121;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 100%;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  background-color: #FFF;
+  font-size: 1.6em;
+  border-bottom: solid rgb(210, 214, 212) 1px;
+  height: 0.8em;
+  margin: 1.6em 0;
+}
+
+h2 span {
+  padding-right: 0.5em;
+  background: #FFF;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h3, p {
+  margin: 1em auto;
+}
+
+a {
+  color: rgb(42, 48, 62);
+}
+
+a:hover, a:active {
+  color: rgb(210, 214, 212);
+  text-decoration: none;
+}
+
+table {
+  margin: 2em auto;
+  width: 100%;
+  border-top: 2px solid #212121;
+  border-bottom: 2px solid #212121;
+}
+
+thead {
+  border-bottom: 1px solid #212121;
+  font-weight: bold;
+}
+
+td, th {
+  padding: 0.5em;
+}
+
+.color-reverse {
+  background-color: rgb(42, 48, 62);
+}
+
+.color-reverse * {
+  color: #fff;
+}
+
+.color-reverse a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.color-reverse a:hover {
+  color: #CCC;
+  text-decoration: none;
+}
+
+.page-section {
+  position: relative;
+  padding: 1em 5em;
+}
+
+.outline {
+  margin: 1em auto;
+  background: #EEE;
+  border-radius: 8px;
+  padding: 1em 2em;
+}
+
+select, button {
+  width: 100%;
+  font-size: 1em;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+}
+
+.row {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button {
+  background: rgba(42, 48, 62, 0.2);
+  border: 1px rgb(42, 48, 62) solid;
+  border-radius: 0.5em;
+  color: rgb(42, 48, 62);
+  font-size: 1em !important;
+  margin: 0.1em 0;
+  padding: 0.5em 1em !important;
+  width: 100%;
+}
+
+.button > .row:nth-child(odd) {
+  width: 10%;
+  max-width: 2em;
+  text-align: center;
+}
+
+.button > .row:nth-child(even) {
+  width: 85%;
+}
+
+.button.choice {
+  border-radius: 2em;
+}
+
+.button:hover, .button:active {
+  background: #FFF;
+  color: rgb(42, 48, 62);
+}
+
+.button[data-selected=true] {
+  background: rgb(42, 48, 62);
+  color: #FFF;
+}
+
+.button span.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+
+.button span.icon:before,
+.button span.icon:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0.2em;
+  height: 1em;
+  background: rgb(42, 48, 62);
+  left: 0.4em;
+}
+
+.button span.icon:before {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.button span.icon:after {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.button:hover span.icon:before,
+.button:checked span.icon:before,
+.button[data-selected=true] span.icon:before {
+  display: none;
+}
+
+.button:hover span.icon:after,
+.button:checked span.icon:after,
+.button[data-selected=true] span.icon:after {
+  left: 0.3em;
+  width: 0.3em;
+  height: 0.6em;
+  background: none;
+  border: solid rgb(42, 48, 62);
+  border-width: 0 0.2em 0.2em 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.button[data-selected=true] span.icon:after {
+  border: solid rgb(210, 214, 212);
+  border-width: 0 0.2em 0.2em 0;
+}
+
+fieldset.inline {
+  text-align: center;
+}
+
+fieldset.inline > .button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+fieldset.inline.elements-3 > .button {
+  width: 32%;
+}
+
+fieldset.inline.elements-4 > .button {
+  width: 24%;
+}
+
+fieldset.inline.elements-5 > .button {
+  width: 19%;
+}
+
+fieldset.inline > .button > .row {
+  display: block;
+  width: 100%;
+  max-width: none;
+  text-align: center;
+  padding: 0;
+}
+
+label {
+  display: block;
+}
+
+input[type=number] {
+  border: 1px solid #AAA;
+  border-radius: 5px;
+  width: 6em;
+  text-align: center;
+  margin-right: 1em;
+}
+
+#test, #result {
+  display: none;
+}
+
+#test form input {
+  font-size: 1.2em;
+  padding: 0.3em 0.5em;
+}
+
+h1 {
+  line-height: 2;
+  text-align: center;
+}
+
+h1 #title {
+  font-size: 150%;
+}
+
+img {
+  max-width: 640px;
+}
+
+#test-render {
+  border-bottom: rgb(210, 214, 212) solid 1px;
+  padding: 1em 0;
+  margin-bottom: 1em;
+}
+
+@media screen and (max-width: 960px) {
+  .page-section {
+    padding: 1em 8.33%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  fieldset.inline > .button {
+    display: block;
+  }
+
+  fieldset.inline > .button > .row {
+    display: inline-block;
+  }
+
+  fieldset.inline > .button > .row:nth-child(odd) {
+    width: 10%;
+    max-width: 2em;
+    text-align: center;
+  }
+
+  fieldset.inline > .button > .row:nth-child(even) {
+    width: 85%;
+    text-align: left;
+  }
+
+  fieldset.inline.elements-3 > .button,
+  fieldset.inline.elements-4 > .button,
+  fieldset.inline.elements-5 > .button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 384px) {
+  .page-section {
+    padding: 1em 2em;
+  }
+}

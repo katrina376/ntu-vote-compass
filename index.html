@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Katrina H.-Y. Chan"/>
+  <meta name="description" content=""/>
+  <title>NTU Vote Compass 投票輔助系統</title>
+  <link rel="stylesheet" href="statics/stylesheets/reset.css?666" type="text/css"/>
+  <link rel="stylesheet" href="statics/stylesheets/main.css?666" type="text/css"/>
+</head>
+
+<body>
+  <header id="page-header" class="page-section color-reverse">
+    <h1>
+      <img src="statics/images/EREC_logo.png" alt="國立臺灣大學學生會選舉罷免執行委員會"><br/>
+      <span id="title">Vote Compass 投票輔助系統</span>
+    </h1>
+  </header>
+  <div class="page-section" id="loading"></div>
+  <div class="page-section" id="test">
+    <form>
+      <div id="test-render"></div>
+      <input type="submit" class="button" value="開始計算"/>
+    </form>
+  </div>
+  <div class="page-section" id="result">
+    <h1>測驗結果</h1>
+    <div id="result-render"></div>
+  </div>
+  <footer class="page-section color-reverse">
+    <h3>國立臺灣大學學生會選舉罷免執行委員會</h3>
+    <p>Election &amp; Recalling Execution Commission, National Taiwan University Student Association</p>
+    <p>臺北市大安區羅斯福路四段一號（國立臺灣大學第一學生活動中心 237 室）</p>
+    <p>電子郵件信箱：<a href="mailto:ntuscvote@gmail.com" target="_top">ntuscvote@gmail.com</a></p>
+    <p>Facebook 粉絲專頁：<a href="https://www.facebook.com/NTUVote" target="_blank">http://www.facebook.com/NTUVote</a></p>
+    <p>官方網站：<a href="https://vote.ntustudents.org" target="_blank">https://vote.ntustudents.org</a></p>
+  </footer>
+  <script>
+    const path_to_test = 'assets/test-mocking.md?666';
+    const path_to_result = 'assets/result-mocking.csv?666';
+  </script>
+  <script src="statics/scripts/showdown.min.js?666"></script>
+  <script src="statics/scripts/papaparse.min.js?666"></script>
+  <script src="statics/scripts/main.js?666"></script>
+  <script src="statics/scripts/extensions.js?666"></script>
+  <script src="statics/scripts/score.js?666"></script>
+  <script>
+    /* Initialize renderer */
+    const converter = new showdown.Converter({
+      extensions: [sectionExt, h2Ext, outlineExt, listExt, choiceExt, rankExt, levelExt],
+      tables: true,
+      simplifiedAutoLink: true,
+    });
+
+    /* Start loading clock */
+    let clock = runLoading($('#loading'));
+
+    /* Fetch test setting file and starting rendering */
+    fetch(path_to_test)
+      .then(response => response.text())
+      .then(text => converter.makeHtml(text))
+      .then(html => $('#test-render').innerHTML = html)
+      .then(arg => $('#test').style.display = 'block')
+      .then(arg => stopLoading(clock, $('#loading')))
+      .then(arg => initializeView());
+
+    /* Fetch test setting file and starting rendering */
+    fetch(path_to_result)
+      .then(response => response.text())
+      .then(text => Papa.parse(text, {header: true}))
+      .then(data => processCandidate(data.data))
+      .then(data => initializeSubmit(data));
+  </script>
+</body>
