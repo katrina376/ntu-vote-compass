@@ -180,11 +180,11 @@ const rankExt = () => {
             submatches[j],
             (
               '<label for="' + id + '">' +
-              '<input type="number"' +
+              '<div class="row"><input type="number"' +
               'name="' + name +
               '" id="' + id +
-              '" data-code="' + code + '" required/>' +
-              display +
+              '" data-code="' + code + '" required/></div>' +
+              '<div class="row">' + display + '</div>' +
               '</label>'
             )
           )

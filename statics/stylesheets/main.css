@@ -262,12 +262,29 @@ fieldset.inline > .button > .row {
 
 label {
   display: block;
+  margin: 0.5em 0;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgb(42, 48, 62);
+}
+
+label:last-child {
+  border-bottom: none;
+}
+
+label > .row:nth-child(odd) {
+  width: 30%;
+  max-width: 5em;
+}
+
+label > .row:nth-child(even) {
+  width: 68%;
+  padding-left: 0.5em;
 }
 
 input[type=number] {
-  border: 1px solid #AAA;
+  border: 1px solid rgb(42, 48, 62);
   border-radius: 5px;
-  width: 6em;
+  width: 100%;
   text-align: center;
   margin-right: 1em;
 }
