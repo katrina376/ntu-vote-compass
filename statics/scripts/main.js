@@ -349,7 +349,7 @@ const renderResults = (results, candidates, filters) => {
         );
 
         holder.innerHTML += (
-          '<div class="candidate">' +
+          '<section>' +
           '<h2><span>第 ' + rank + ' 名：' + candidate.name +
           '，相似度 ' + (Math.round(el.score * 100) / 100) + ' %！</span></h2>' +
           '<p>這位是' + identity + '候選人' +
@@ -357,7 +357,7 @@ const renderResults = (results, candidates, filters) => {
           '">在此</a>。</p>' +
           '<h3>這位候選人認為...</h3>' +
           '<p>' + candidate.description + '</p>' +
-          '</div>'
+          '</section>'
         )
       }
     }
