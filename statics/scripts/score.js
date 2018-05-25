@@ -70,11 +70,11 @@ const overlap = (user, candidate) => {
 }
 
 const similarity = (ruler, neutral, user, candidate) => {
-  let range = ruler[ruler.length - 1] - ruler[0];
+  let range = Number(ruler[ruler.length - 1]) - Number(ruler[0]);
   let dist = Math.abs(Number(user) - Number(candidate));
 
   if (neutral) {
-    return (user === neutral) ? -1 : 1 - (dist / range);
+    return (user === Number(neutral)) ? -1 : 1 - (dist / range);
   } else {
     return 1 - (dist / range);
   }

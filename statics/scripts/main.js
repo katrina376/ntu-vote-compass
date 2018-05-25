@@ -305,16 +305,19 @@ const calculate = (section, candidate) => {
 
   if (config) {
     let user = getFilled(section);
-    if (
-      ((config.type === 'choice') &&
-        (config.upperBound === 1) &&
-        (config.lowerBound === 1)) ||
-      (config.type === 'level')
-    ) {
-      return similarity(user, candidate);
+    if (config.type === 'level') {
+      let ruler = Array.from(
+          $$('.button', section)).map((el) => el.getAttribute('data-code'))
+      let neutral = ruler[Math.floor(ruler.length / 2)];
+      return similarity(ruler, neutral, user, candidate);
     } else if (config.type === 'choice') {
-      let user = getFilled(section);
-      return overlap(user, candidate);
+      if ((config.upperBound === 1) && (config.lowerBound === 1)) {
+        let ruler = Array.from(
+            $$('.button', section)).map((el) => el.getAttribute('data-code'));
+        return similarity(ruler, null, user, candidate);
+      } else {
+        return overlap(user, candidate);
+      }
     } else if (config.type === 'rank') {
       return distance(user, candidate);
     } else {
