@@ -161,8 +161,8 @@ fieldset {
   vertical-align: middle;
 }
 
-.button span.icon:before,
-.button span.icon:after {
+.button span.icon::before,
+.button span.icon::after {
   content: "";
   display: block;
   position: absolute;
@@ -172,27 +172,27 @@ fieldset {
   left: 0.4em;
 }
 
-.button span.icon:before {
+.button span.icon::before {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
-.button span.icon:after {
+.button span.icon::after {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-.button:hover span.icon:before,
-.button:checked span.icon:before,
-.button[data-selected=true] span.icon:before {
+.button:hover span.icon::before,
+.button:checked span.icon::before,
+.button[data-selected=true] span.icon::before {
   display: none;
 }
 
-.button:hover span.icon:after,
-.button:checked span.icon:after,
-.button[data-selected=true] span.icon:after {
+.button:hover span.icon::after,
+.button:checked span.icon::after,
+.button[data-selected=true] span.icon::after {
   left: 0.3em;
   width: 0.3em;
   height: 0.6em;
@@ -204,7 +204,7 @@ fieldset {
   transform: rotate(45deg);
 }
 
-.button[data-selected=true] span.icon:after {
+.button[data-selected=true] span.icon::after {
   border: solid rgb(210, 214, 212);
   border-width: 0 0.2em 0.2em 0;
 }
