@@ -145,7 +145,7 @@ const getConfig = (section) => {
   }
 }
 
-const verify = (section) => {
+const validate = (section) => {
   let config = getConfig(section);
 
   if (config) {
@@ -241,11 +241,16 @@ const initializeSubmit = (candidates) => {
   $('#test form').addEventListener('submit', (ev) => {
     ev.preventDefault();
 
-    const sections = Array.from($$('section', ev.target));
-    let pass = true;
+    /* Reset results */
+    $('#result').style.display = 'none';
+    $('#result-render').innerHTML = '';
 
+    const sections = Array.from($$('section', ev.target));
+
+    /* Validate the filled answers */
+    let pass = true;
     for (let i in sections) {
-      let error = verify(sections[i]);
+      let error = validate(sections[i]);
       if (error) {
         pass = false;
         alert($('h2', sections[i]).innerText + '填寫有誤喔！' + error + '。');
@@ -330,7 +335,6 @@ const calculate = (section, candidate) => {
 
 const renderResults = (results, candidates, filters) => {
   let holder = $('#result-render');
-  holder.innerHTML = '';
 
   let rank = 0;
   results.forEach((el) => {
