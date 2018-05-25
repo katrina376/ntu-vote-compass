@@ -4,7 +4,7 @@
 
 /* Dark:  #2A303E R: 42 G: 48 B: 62    */
 
-* {
+*, body {
   position: relative;
   font-family: sans-serif;
   -webkit-box-sizing: border-box;
@@ -17,7 +17,12 @@ body {
   font-size: 16px;
   margin: 0 auto;
   width: 100%;
+  min-width: 480px;
   line-height: 1.6;
+}
+
+section {
+  padding: 1em 0;
 }
 
 h1, h2, h3 {
@@ -29,11 +34,17 @@ h1 {
 }
 
 h2 {
-  background-color: #FFF;
   font-size: 1.6em;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  top: 50%;
   border-bottom: solid rgb(210, 214, 212) 1px;
-  height: 0.8em;
-  margin: 1.6em 0;
 }
 
 h2 span {
@@ -137,11 +148,11 @@ fieldset {
 }
 
 .button > .row:nth-child(even) {
-  width: 85%;
+  width: 88%;
 }
 
 .button.choice {
-  border-radius: 2em;
+  border-radius: 1.5em;
 }
 
 .button:hover, .button:active {
@@ -235,7 +246,6 @@ fieldset.inline > .button > .row {
   width: 100%;
   max-width: none;
   text-align: center;
-  padding: 0;
 }
 
 label {
@@ -269,7 +279,8 @@ h1 #title {
 }
 
 img {
-  max-width: 640px;
+  width: 100%;
+  max-width: 720px;
 }
 
 #test-render {
@@ -284,9 +295,22 @@ img {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
   fieldset.inline > .button {
     display: block;
+    text-align: left;
   }
 
   fieldset.inline > .button > .row {
@@ -300,7 +324,7 @@ img {
   }
 
   fieldset.inline > .button > .row:nth-child(even) {
-    width: 85%;
+    width: 88%;
     text-align: left;
   }
 
