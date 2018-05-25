@@ -85,6 +85,18 @@ td, th {
   padding: 0.5em;
 }
 
+ol, ul {
+  margin: 1em 0 1em 1em;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: circle;
+}
+
 .color-reverse {
   background-color: rgb(42, 48, 62);
 }
