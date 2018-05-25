@@ -280,7 +280,7 @@ const initializeSubmit = (candidates) => {
           sections.forEach((section) => {
             let id = section.id;
             let score = calculate(section, candidate[id]);
-            if (score > -1) {
+            if (score) {
               base += 1;
               scores[candidate['name']] += score;
             }
@@ -326,10 +326,10 @@ const calculate = (section, candidate) => {
     } else if (config.type === 'rank') {
       return distance(user, candidate);
     } else {
-      return -1;
+      return null;
     }
   } else {
-    return -1;
+    return null;
   }
 }
 

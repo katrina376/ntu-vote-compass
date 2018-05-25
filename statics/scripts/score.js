@@ -74,7 +74,7 @@ const similarity = (ruler, neutral, user, candidate) => {
   let dist = Math.abs(Number(user) - Number(candidate));
 
   if (neutral) {
-    return (user === Number(neutral)) ? -1 : 1 - (dist / range);
+    return (user === neutral) ? null : 1 - (dist / range);
   } else {
     return 1 - (dist / range);
   }
