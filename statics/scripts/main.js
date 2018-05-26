@@ -10,7 +10,7 @@ const runLoading = (el) => {
 }
 
 const stopLoading = (clock, el) => {
-  clearInterval(clock)
+  clearInterval(clock);
   el.style.display = 'none';
   el.innerHTML = '';
   return;
@@ -36,11 +36,11 @@ const processCandidate = (data) => {
 
 const getButton = (target) => {
   return (target.className.indexOf('button') > -1) ?
-        target :
-        (target.parentNode.className.indexOf('button') > -1) ?
-        target.parentNode :
-        (target.parentNode.parentNode.className.indexOf('button') > -1) ?
-        target.parentNode.parentNode : null;
+    target :
+    (target.parentNode.className.indexOf('button') > -1) ?
+    target.parentNode :
+    (target.parentNode.parentNode.className.indexOf('button') > -1) ?
+    target.parentNode.parentNode : null;
 }
 
 const bindButtonBehavior = (section) => {
@@ -301,7 +301,7 @@ const initializeSubmit = (candidates) => {
         }
       });
 
-      let scores = {}
+      let scores = {};
 
       candidates.forEach((candidate) => {
         if (candidate['name']) {
@@ -342,13 +342,13 @@ const calculate = (section, candidate) => {
     let user = getFilled(section);
     if (config.type === 'level') {
       let ruler = Array.from(
-          $$('.button', section)).map((el) => el.getAttribute('data-code'))
+        $$('.button', section)).map((el) => el.getAttribute('data-code'))
       let neutral = ruler[Math.floor(ruler.length / 2)];
       return similarity(ruler, neutral, user, candidate);
     } else if (config.type === 'choice') {
       if ((config.upperBound === 1) && (config.lowerBound === 1)) {
         let ruler = Array.from(
-            $$('.button', section)).map((el) => el.getAttribute('data-code'));
+          $$('.button', section)).map((el) => el.getAttribute('data-code'));
         return similarity(ruler, null, user, candidate);
       } else {
         return overlap(user, candidate);
