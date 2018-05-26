@@ -34,25 +34,13 @@ const processCandidate = (data) => {
   return ret;
 }
 
-const bindButtonStyle = (section) => {
-  Array.from($$('#test-render .button', section)).forEach((el) => {
-    el.addEventListener('click', (ev) => {
-      ev.preventDefault();
-
-      let button = (ev.target.className.indexOf('button') > -1) ?
-        ev.target :
-        (ev.target.parentNode.className.indexOf('button') > -1) ?
-        ev.target.parentNode :
-        (ev.target.parentNode.parentNode.className.indexOf('button') > -1) ?
-        ev.target.parentNode.parentNode : null;
-
-      if (button.getAttribute('data-selected') === 'true') {
-        button.removeAttribute('data-selected');
-      } else {
-        button.setAttribute('data-selected', 'true');
-      }
-    });
-  });
+const getButton = (target) => {
+  return (target.className.indexOf('button') > -1) ?
+        target :
+        (target.parentNode.className.indexOf('button') > -1) ?
+        target.parentNode :
+        (target.parentNode.parentNode.className.indexOf('button') > -1) ?
+        target.parentNode.parentNode : null;
 }
 
 const bindButtonBehavior = (section) => {
@@ -60,13 +48,7 @@ const bindButtonBehavior = (section) => {
     el.addEventListener('click', (ev) => {
       ev.preventDefault();
 
-      let button = (ev.target.className.indexOf('button') > -1) ?
-        ev.target :
-        (ev.target.parentNode.className.indexOf('button') > -1) ?
-        ev.target.parentNode :
-        (ev.target.parentNode.parentNode.className.indexOf('button') > -1) ?
-        ev.target.parentNode.parentNode : null;
-
+      let button = getButton(ev.target);
       let fieldset = button.parentNode;
 
       Array.from($$('.button', fieldset)).forEach((b) => {
@@ -76,6 +58,32 @@ const bindButtonBehavior = (section) => {
           b.removeAttribute('data-selected');
         }
       });
+    });
+  });
+}
+
+const bindButtonLimit = (section) => {
+  Array.from($$('#test-render .button', section)).forEach((el) => {
+    el.addEventListener('click', (ev) => {
+      ev.preventDefault();
+
+      let config = getConfig(section);
+
+      let button = getButton(ev.target);
+      let fieldset = button.parentNode;
+      let buttonSet = $$('.button[data-selected=true]', fieldset);
+
+      if (button.getAttribute('data-selected') === 'true') {
+        button.removeAttribute('data-selected');
+      } else {
+        if ((config) && (config.upperBound)) {
+          if (buttonSet.length >= config.upperBound) {
+            alert('已超過可選上限！請先取消選擇其他選項才可以再選喔！');
+          } else {
+            button.setAttribute('data-selected', 'true');
+          }
+        }
+      }
     });
   });
 }
@@ -96,12 +104,12 @@ const initializeView = () => {
 
     if (config) {
       if (config.type === 'level') {
-        bindButtonStyle(el);
         bindButtonBehavior(el);
       } else if (config.type === 'choice') {
-        bindButtonStyle(el);
         if (config.upperBound === 1) {
           bindButtonBehavior(el);
+        } else {
+          bindButtonLimit(el);
         }
       }
     }
