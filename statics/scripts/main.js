@@ -88,6 +88,28 @@ const bindButtonLimit = (section) => {
   });
 }
 
+const bindRankLimit = (section) => {
+  const inputSet = Array.from($$('input[type=number]', section))
+  inputSet.forEach((input) => {
+    input.setAttribute('step', 1);
+    input.setAttribute('min', 1);
+    input.setAttribute('max', inputSet.length);
+
+    input.addEventListener('change', (ev) => {
+      if ((ev.target.value < 1) || (ev.target.value > inputSet.length)) {
+        alert('不能填入 1~5 以外的數字，請更正。');
+        ev.target.value = '';
+      } else {
+        let dulplicate = inputSet.filter((el) => el.value === ev.target.value);
+        if (dulplicate.length > 1) {
+          alert('本題組已有排名第 ' + ev.target.value + ' 的選項，請更正。');
+          ev.target.value = '';
+        }
+      }
+    });
+  });
+}
+
 const initializeView = () => {
   Array.from($$('fieldset.inline')).forEach((el) => {
     if ($$('.button', el).length == 3) {
@@ -111,6 +133,8 @@ const initializeView = () => {
         } else {
           bindButtonLimit(el);
         }
+      } else if (config.type === 'rank') {
+        bindRankLimit(el);
       }
     }
   });
@@ -177,18 +201,16 @@ const validate = (section) => {
       return null;
     } else if (config.type === 'rank') {
       let answers = Array.from($$('#' + config.name + ' input'));
-      let buff = Array();
-
       let ret = null;
 
-      answers.forEach((el) => {
-        if (!el.value) {
+      answers.forEach((answer) => {
+        if (!answer.value) {
           ret = '有未填欄位';
         }
-        if (buff.indexOf(el.value) > -1) {
+
+        let dulplicate = answers.filter((el) => answer.value === el.value);
+        if (dulplicate.length > 1) {
           ret = '排名重複';
-        } else {
-          buff.push(el.value);
         }
       });
       return ret;
