@@ -5,8 +5,19 @@
   <meta name="author" content="Katrina H.-Y. Chan"/>
   <meta name="description" content=""/>
   <title>NTU Vote Compass 投票輔助系統</title>
-  <link rel="stylesheet" href="statics/stylesheets/reset.css" type="text/css"/>
-  <link rel="stylesheet" href="statics/stylesheets/main.css" type="text/css"/>
+  <link rel="stylesheet" href="statics/stylesheets/reset.min.css" type="text/css"/>
+  <link rel="stylesheet" href="statics/stylesheets/main.min.css" type="text/css"/>
+  <script src="statics/scripts/polyfill.min.js"></script>
+  <script src="statics/scripts/fetch.min.js"></script>
+  <script src="statics/scripts/papaparse.min.js"></script>
+  <script src="statics/scripts/showdown.min.js"></script>
+  <script src="statics/scripts/compress.min.js"></script>
+  <script>
+    /* Setup path to assets */
+    const path_to_test = 'assets/test-mocking.md';
+    const path_to_result = 'assets/result-mocking.csv';
+    const path_to_no_answer = 'assets/no-answer-mocking.csv';
+  </script>
 </head>
 
 <body>
@@ -26,6 +37,8 @@
   <div class="page-section" id="result">
     <h1>測驗結果</h1>
     <div id="result-render"></div>
+    <h2><span>以下候選人未作答</span></h2>
+    <ul id="no-answer-render"></ul>
   </div>
   <footer class="page-section color-reverse">
     <h3>國立臺灣大學學生會選舉罷免執行委員會</h3>
@@ -36,28 +49,15 @@
     <p>官方網站：<a href="https://vote.ntustudents.org" target="_blank">https://vote.ntustudents.org</a></p>
   </footer>
   <script>
-    const path_to_test = 'assets/test-mocking.md';
-    const path_to_result = 'assets/result-mocking.csv';
-  </script>
-  <script src="statics/scripts/polyfill.min.js"></script>
-  <script src="statics/scripts/fetch.min.js"></script>
-  <script src="statics/scripts/showdown.min.js"></script>
-  <script src="statics/scripts/papaparse.min.js"></script>
-  <script src="statics/scripts/extensions.js"></script>
-  <script src="statics/scripts/utils.js"></script>
-  <script src="statics/scripts/templates.js"></script>
-  <script src="statics/scripts/score.js"></script>
-  <script src="statics/scripts/main.js"></script>
-  <script>
+    /* Start loading clock */
+    const clock = runLoading($('#loading'));
+
     /* Initialize renderer */
     const converter = new showdown.Converter({
       extensions: [sectionExt, h2Ext, outlineExt, listExt, choiceExt, rankExt, levelExt],
       tables: true,
       simplifiedAutoLink: true,
     });
-
-    /* Start loading clock */
-    let clock = runLoading($('#loading'));
 
     /* Fetch test setting file and starting rendering */
     fetch(path_to_test)
@@ -74,5 +74,12 @@
       .then(text => Papa.parse(text, {header: true}))
       .then(data => processCandidate(data.data))
       .then(data => initializeSubmit(data));
+
+    /* Fetch no answer setting file and starting rendering */
+    fetch(path_to_no_answer)
+      .then(response => response.text())
+      .then(text => Papa.parse(text, {header: true}))
+      .then(data => processCandidate(data.data))
+      .then(data => initializeDisplayNoAnswer(data));
   </script>
 </body>
