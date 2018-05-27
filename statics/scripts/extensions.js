@@ -183,7 +183,7 @@ const rankExt = () => {
               '<div class="row"><input type="number"' +
               'name="' + name +
               '" id="' + id +
-              '" data-code="' + code + '" required/></div>' +
+              '" data-code="' + code + '" min="1" step="1" required/></div>' +
               '<div class="row">' + display + '</div>' +
               '</label>'
             )
