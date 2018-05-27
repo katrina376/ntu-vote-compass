@@ -86,10 +86,9 @@ const bindRankLimit = (section) => {
         ev.target.value = '';
       } else {
         let dulplicated = inputSet
-          .map((el) => el.value === ev.target.value)
-          .reduce((a, b) => a || b);
+          .filter((el) => el.value === ev.target.value);
 
-        if (dulplicated > 1) {
+        if (dulplicated.length > 1) {
           alert('本題組已有排名第 ' + ev.target.value + ' 的選項，請更正。');
           ev.target.value = '';
         }
@@ -199,6 +198,40 @@ const initializeSubmit = (candidates) => {
   });
 }
 
+const initializeDisplayNoAnswer = (candidates) => {
+  $('#test form').addEventListener('submit', (ev) => {
+    ev.preventDefault();
+
+    let holder = $('#no-answer-render');
+    holder.innerHTML = '';
+
+    /* Get filters by list if set in configuration */
+    let filters = {};
+
+    const sections = Array.from($$('section', ev.target));
+    sections.forEach((section) => {
+      let config = parseConfig(section);
+
+      if (config) {
+        if ((config.type === 'list') && (parseFilled(section) !== '*')) {
+          filters[config.name] = parseFilled(section);
+        }
+      }
+    });
+
+    candidates.forEach((candidate) => {
+      let qualified = (Object.keys(filters).length > 0) ?
+        Object.keys(filters)
+          .map((key) => candidate[key] === filters[key])
+          .reduce((a, b) => a && b) : true;
+
+      if ((candidate.name) && (qualified)) {
+        holder.innerHTML += remainCandidateTemplate(candidate);
+      }
+    });
+  });
+}
+
 const calculate = (section, candidateObject) => {
   const config = parseConfig(section);
 
@@ -239,14 +272,13 @@ const renderResults = (results, candidates, filters) => {
     for (let i in candidates) {
       let candidate = candidates[i];
 
-      let qualified = (filters.length > 0) ?
+      let qualified = (Object.keys(filters).length > 0) ?
         Object.keys(filters)
           .map((key) => candidate[key] === filters[key])
           .reduce((a, b) => a && b) : true;
 
       if ((candidate.name === el.name) && (qualified)) {
         rank += 1;
-        let candidate = candidates[i];
         holder.innerHTML += displayCandidateTemplate(rank, el.score, candidate);
       }
     }

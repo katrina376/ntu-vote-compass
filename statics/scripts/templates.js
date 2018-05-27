@@ -26,8 +26,6 @@ const remainCandidateTemplate = (candidate) => {
   );
 
   return (
-    '<li>' + identity + '候選人：' + candidate.name +
-    '，公報連結<a target="_blank" href="' + candidate.link +
-    '">在此</a>。</li>'
+    '<li>' + identity + '候選人：' + candidate.name + '。</li>'
   )
 }
